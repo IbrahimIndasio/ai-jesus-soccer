@@ -5,8 +5,7 @@ export function GET() {
     {
       status: "ok",
       aiConfigured: Boolean(
-        process.env.ANTHROPIC_API_KEY &&
-        process.env.ANTHROPIC_API_KEY !== "dummy",
+        process.env.GEMINI_API_KEY && process.env.GEMINI_API_KEY !== "dummy",
       ),
       footballConfigured: Boolean(process.env.FOOTBALL_API_KEY),
       rateLimitConfigured: Boolean(

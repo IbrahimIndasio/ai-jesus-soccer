@@ -1,6 +1,6 @@
 # Build verification
 
-Validated on 8 October 2026.
+Validated on 8 October 2026; Gemini migration revalidated on 10 October 2026.
 
 | Requirement                                               | Result                                                                                                         |
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
@@ -10,7 +10,8 @@ Validated on 8 October 2026.
 | TypeScript                                                | Passed                                                                                                         |
 | Parser unit tests                                         | 33 passed                                                                                                      |
 | API boundary tests                                        | 5 passed, including incremental streaming and citations                                                        |
-| Production build with `ANTHROPIC_API_KEY=dummy`           | Passed                                                                                                         |
+| Gemini SSE provider tests                                 | 4 passed: split frames, sources, missing key, quota and blocking                                               |
+| Production build with `GEMINI_API_KEY=dummy`              | Passed                                                                                                         |
 | Local development server                                  | Booted; health and prophecy routes exercised                                                                   |
 | Invalid fixture via curl                                  | 400 with `Could not parse fixture`                                                                             |
 | Missing-key generation via curl                           | Graceful 502; no credential disclosure                                                                         |
@@ -20,10 +21,10 @@ Validated on 8 October 2026.
 | Mobile overflow at 390px                                  | Passed                                                                                                         |
 | Browser runtime errors on happy path                      | None                                                                                                           |
 | Desktop, mobile, light theme, seven-section visual review | Completed                                                                                                      |
-| Real Anthropic research/generation                        | Not verified: no API key available                                                                             |
+| Real Gemini research/generation                           | Not verified: no API key available                                                                             |
 | Real API-Football and Upstash access                      | Not verified: optional credentials unavailable                                                                 |
-| GitHub repository publishing                              | Repository created by the user on 10 October 2026; full source prepared for publishing                         |
+| GitHub repository publishing                              | Full source published on 10 October 2026; Gemini migration prepared for publishing                             |
 | Vercel deployment                                         | Blocked: project creation returned 403, no permission in the selected team                                     |
 | Production security readiness                             | Next.js 14 is retained as requested; unsupported framework needs upgrading before a production-readiness claim |
 
-The source contains a first commit on `main`, a reproducible lockfile, CI, and deployment instructions. Paid AI generation and remote deployment must not be confused with the mocked browser and API-boundary tests.
+The source contains a first commit on `main`, a reproducible lockfile, CI, and deployment instructions. Live AI generation and remote deployment must not be confused with the mocked browser and API-boundary tests.

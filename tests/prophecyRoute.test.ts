@@ -5,7 +5,7 @@ const mocks = vi.hoisted(() => ({
   limit: vi.fn(),
   context: vi.fn(),
 }));
-vi.mock("@/lib/anthropic", () => ({ createProphecyStream: mocks.stream }));
+vi.mock("@/lib/gemini", () => ({ createProphecyStream: mocks.stream }));
 vi.mock("@/lib/rateLimit", () => ({ checkRateLimit: mocks.limit }));
 vi.mock("@/lib/footballApi", () => ({ getFootballContext: mocks.context }));
 import { POST } from "@/app/api/prophecy/route";
@@ -36,24 +36,18 @@ describe("prophecy API boundary", () => {
     });
     async function* events() {
       yield {
-        type: "content_block_delta",
-        delta: { type: "text_delta", text: "First chunk" },
+        type: "text",
+        text: "First chunk",
       };
       await gate;
       yield {
-        type: "content_block_delta",
-        delta: { type: "text_delta", text: " second chunk" },
+        type: "text",
+        text: " second chunk",
       };
       yield {
-        type: "content_block_delta",
-        delta: {
-          type: "citations_delta",
-          citation: {
-            type: "web_search_result_location",
-            url: "https://example.com/report",
-            title: "Test source",
-          },
-        },
+        type: "source",
+        url: "https://example.com/report",
+        title: "Test source",
       };
     }
     const upstream = events();

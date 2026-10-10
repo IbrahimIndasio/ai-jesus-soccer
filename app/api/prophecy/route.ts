@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { parseFixture } from "@/lib/parseFixture";
-import { createProphecyStream } from "@/lib/anthropic";
+import { createProphecyStream } from "@/lib/gemini";
 import { checkRateLimit } from "@/lib/rateLimit";
 import { getFootballContext } from "@/lib/footballApi";
 
@@ -78,26 +78,10 @@ export async function POST(request: NextRequest) {
         try {
           const citations = new Map<string, string>();
           for await (const event of upstream) {
-            if (
-              event.type === "content_block_delta" &&
-              event.delta.type === "text_delta"
-            )
-              controller.enqueue(encoder.encode(event.delta.text));
-            if (
-              event.type === "content_block_delta" &&
-              event.delta.type === "citations_delta" &&
-              event.delta.citation.type === "web_search_result_location"
-            ) {
-              const { url, title } = event.delta.citation;
-              if (/^https?:\/\//i.test(url))
-                citations.set(url, title || new URL(url).hostname);
-            }
-            if (
-              event.type === "content_block_start" &&
-              event.content_block.type === "web_search_tool_result" &&
-              !Array.isArray(event.content_block.content)
-            )
-              throw new Error("Web search unavailable");
+            if (event.type === "text")
+              controller.enqueue(encoder.encode(event.text));
+            if (event.type === "source" && /^https?:\/\//i.test(event.url))
+              citations.set(event.url, event.title);
           }
           if (citations.size)
             controller.enqueue(
@@ -130,7 +114,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         error:
-          "The prophecy service is unavailable. Check the server API configuration and try again.",
+          "The prophecy service is unavailable. Check GEMINI_API_KEY and your free-tier quota, then try again.",
       },
       { status: 502 },
     );

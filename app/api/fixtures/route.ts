@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       source: fixtures.length ? "api-football" : "web-search",
       message: fixtures.length
         ? null
-        : "No confirmed fixture records available. Prophecy research will use Claude web search.",
+        : "No confirmed fixture records available. Prophecy research will use Gemini Google Search.",
     },
     { headers: { "Cache-Control": "no-store" } },
   );
