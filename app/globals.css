@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --background: 40 33% 96%;
+    --foreground: 36 16% 12%;
+    --card: 40 28% 99%;
+    --muted: 40 22% 89%;
+    --muted-foreground: 35 12% 36%;
+    --border: 38 17% 79%;
+    --gold: 37 71% 31%;
+  }
+  .dark {
+    --background: 40 12% 5%;
+    --foreground: 42 39% 94%;
+    --card: 36 12% 8%;
+    --muted: 36 10% 14%;
+    --muted-foreground: 37 15% 65%;
+    --border: 37 11% 21%;
+    --gold: 38 60% 65%;
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100vh;
+    background-image: radial-gradient(
+      ellipse at 50% 0%,
+      hsl(var(--gold) / 0.09),
+      transparent 65%
+    );
+  }
+  ::selection {
+    background: hsl(var(--gold) / 0.3);
+  }
+  button,
+  a,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a:focus-visible {
+    outline: 2px solid hsl(var(--gold));
+    outline-offset: 5px;
+    border-radius: 4px;
+  }
+}
+.font-display {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+.scroll-copy p {
+  margin: 0 0 1rem;
+  line-height: 1.85;
+}
+.scroll-copy ul,
+.scroll-copy ol {
+  padding-left: 1.4rem;
+  margin: 0 0 1rem;
+}
+.scroll-copy ul {
+  list-style: disc;
+}
+.scroll-copy ol {
+  list-style: decimal;
+}
+.scroll-copy li {
+  line-height: 1.85;
+  margin-bottom: 0.55rem;
+  padding-left: 0.25rem;
+}
+.scroll-copy li p {
+  margin-bottom: 0.35rem;
+}
+.scroll-copy strong {
+  font-weight: 600;
+}
+.scroll-copy a {
+  color: hsl(var(--gold));
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+.scroll-copy table {
+  width: 100%;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+.scroll-copy th,
+.scroll-copy td {
+  padding: 0.75rem;
+  border: 1px solid hsl(var(--border));
+  text-align: left;
+}
+.scroll-copy blockquote {
+  border-left: 2px solid hsl(var(--gold));
+  padding-left: 1rem;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+.scroll-copy {
+  overflow-wrap: anywhere;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

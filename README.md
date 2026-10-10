@@ -30,7 +30,7 @@ npm run dev
 
 Open http://localhost:3000 and submit `Arsenal vs Bournemouth`. The AI provider must have a funded account and web search enabled. This project contains no fabricated-data demo fallback: a missing or invalid key produces a clear error.
 
-If you received the source ZIP before a GitHub repository was created, extract it and run the same commands starting with `cd ai-jesus-soccer`.
+If you received the source ZIP, extract it and run the same commands starting with `cd ai-jesus-soccer`.
 
 ## Deployment to Vercel
 
